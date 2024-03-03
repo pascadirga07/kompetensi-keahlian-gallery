@@ -1,0 +1,7 @@
+{
+    "Authentication": true,
+    "Dashboard": true,
+    "User": true,
+    "Home": true,
+    "Gallery": true
+}

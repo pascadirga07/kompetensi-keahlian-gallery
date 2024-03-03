@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Datatables\User;
 use Illuminate\Support\Facades\Route;
 
 /*
