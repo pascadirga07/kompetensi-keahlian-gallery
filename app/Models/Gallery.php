@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Gallery extends Model
 {
     use HasFactory;
+
+    protected $table = 'galleries';
+    protected $primaryKey = 'id';
+
+    public $incrementing = true;
+
     protected $fillable = ['title', 'content', 'created_by'];
 
     public function creator()

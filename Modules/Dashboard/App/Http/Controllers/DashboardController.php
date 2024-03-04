@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Route;
+
 
 class DashboardController extends Controller
 {
@@ -73,5 +75,13 @@ class DashboardController extends Controller
     public function client()
     {
         return view('dashboard::dashboard.client');
+    }
+
+    public function clientstats()
+    {
+        $request = Request::create('/stats/api/dashboards', 'GET');
+        $response = Route::dispatch($request);
+
+        return $response;
     }
 }

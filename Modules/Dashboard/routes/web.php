@@ -23,3 +23,6 @@ Route::middleware('role:admin')->group(function () {
 Route::middleware('role:client')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'client'])->name('dashboard');
 });
+Route::middleware('role:client')->group(function () {
+    Route::get('dashboard/stats', [DashboardController::class, 'clientstats'])->name('clientstats');
+});

@@ -13,6 +13,7 @@ class DatatableUser extends Component
     use WithPagination, WithoutUrlPagination;
 
     public UserForm $form;
+    public ?UserModel $user = null;
 
     public $perPage = 1;
 
@@ -24,11 +25,12 @@ class DatatableUser extends Component
 
     public $update_id = [];
 
-    public function mount(UserModel $user)
+    public function mount(UserModel $user = null)
     {
-        $this->update_id = $user->id;
-        // $this->form->setUser($user);
+        if ($user->exist) {
 
+            $this->form->setUser($user);
+        }
     }
     public function doSort($column)
     {
@@ -40,15 +42,10 @@ class DatatableUser extends Component
         $this->sortDirection = 'ASC';
     }
 
-    public function create()
+    public function save()
     {
         $this->form->store();
     }
-
-    public function update()
-    {
-    }
-
     public function updatedPerPage()
     {
         $this->resetPage();

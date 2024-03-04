@@ -40,6 +40,8 @@ class Profile extends Component
         $this->form->update([
             $name => $value,
         ]);
+
+        session()->flash('status', 'Success: Profile updated successfully!');
     }
 
     public function updateImage()
@@ -53,6 +55,8 @@ class Profile extends Component
                 'image' => $this->image->store('profiles', 'public'),
             ]);
         }
+
+        session()->flash('status', 'Success: Profile picture updated successfully!');
     }
     public function render()
     {

@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Providers\RouteServiceProvider;
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +28,7 @@ class Role
             }
         }
 
-        return back();
+        // return back();
+        return redirect(RouteServiceProvider::HOME);
     }
 }

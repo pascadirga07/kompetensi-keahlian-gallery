@@ -9,7 +9,7 @@ use App\Models\User as UserModel;
 
 class User extends Form
 {
-    public ?UserModel $user;
+    public ?UserModel $user = null;
 
     public $firstname;
 
@@ -23,7 +23,7 @@ class User extends Form
 
     public $repeat_password;
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'firstname' => 'required|min:5',
@@ -41,7 +41,7 @@ class User extends Form
         ];
     }
 
-    public function setUser(UserModel $user)
+    public function setUser(?UserModel $user = null): void
     {
         $this->user = $user;
 
@@ -57,33 +57,15 @@ class User extends Form
         $this->repeat_password = $user->repeat_password;
     }
 
-    public function setUserUpdate(UserModel $user)
-    {
-        $this->user = $user;
-
-        $this->firstname = $user->firstname;
-
-        $this->lastname = $user->lastname;
-    }
-
     public function store()
     {
         $this->validate();
 
-        UserModel::create($this->only('firstname', 'lastname', 'password'));
-
-        session()->flash('message', 'User created successfully.');
-    }
-
-
-    public function update($user_id)
-    {
-        $this->validate();
-
-        $user = UserModel::find($user_id);
-
-        if ($user) {
-            $user->update($this->only('firstname', 'lastname'));
+        if (empty($this->user)) {
+            UserModel::create($this->only('firstname', 'lastname', 'password', 'username', 'email'));
+        } else {
+            $this->user->update($this->only('firstname', 'lastname', 'password'));
         }
+        session()->flash('status', 'User created successfully.');
     }
 }

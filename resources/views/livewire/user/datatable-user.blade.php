@@ -83,8 +83,7 @@
                                                 <a wire:click="show" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                             </li>
                                             <li>
-                                                <input type="text" wire:model="update_id" >
-                                                <a wire:click="update" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                                <a wire:click.live.debounce.230ms="updateUser('{{ $user->id }}')" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                             </li>
                                         </ul>
                                         <div class="py-1">
@@ -170,7 +169,7 @@
                 
                 
                 <div class="card space-y-3 md:space-y-0 p-4 mt-8">
-                    <form wire:submit="create">
+                    <form wire:submit="save">
                         @if(session()->has('message'))
                             <div class="alert alert-success">
                                 {{ session('message') }}

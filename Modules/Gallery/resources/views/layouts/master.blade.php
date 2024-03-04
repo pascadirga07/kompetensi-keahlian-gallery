@@ -26,10 +26,7 @@
 </head>
 
 <body>
-    @persist('navbar-aside')
-    @livewire('dashboard.navbar')
-    @livewire('dashboard.aside')
-    @endpersist()
+
     @yield('content')
 
     {{-- Vite JS --}}
