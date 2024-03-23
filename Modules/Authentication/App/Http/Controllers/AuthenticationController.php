@@ -152,6 +152,8 @@ class AuthenticationController extends Controller
         return back()->with('status', 'Success: Now you can start your session');
     }
 
+
+
     public function logout(Request $request)
     {
         Auth::logout();

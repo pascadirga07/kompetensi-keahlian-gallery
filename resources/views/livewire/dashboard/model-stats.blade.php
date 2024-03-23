@@ -1,6 +1,5 @@
 <div>
     @if($stats)
-    {{ dd($stats) }}
         <h2>Stats:</h2>
         <ul>
             @foreach($stats as $stat)

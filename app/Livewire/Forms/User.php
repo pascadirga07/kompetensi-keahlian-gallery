@@ -2,70 +2,67 @@
 
 namespace App\Livewire\Forms;
 
-use Illuminate\Validation\Rule;
 use Livewire\Form;
-
 use App\Models\User as UserModel;
+use Livewire\Attributes\Validate;
+use Stringable;
 
 class User extends Form
 {
-    public ?UserModel $user = null;
+    public $firstname = '';
 
-    public $firstname;
+    public $lastname = '';
 
-    public $lastname;
+    public $username = '';
 
-    public $username;
+    public $email = '';
 
-    public $email;
+    public $password = '';
 
-    public $password;
+    public $repeat_password = '';
 
-    public $repeat_password;
+    // public function setUser($user): void
+    // {
+    //     $this->user = $user;
 
-    public function rules(): array
-    {
-        return [
-            'firstname' => 'required|min:5',
-            'lastname' => 'required|min:5',
-            'email' => [
-                'required',
-                Rule::unique('users')->ignore($this->user),
-            ],
-            'username' => [
-                'required',
-                Rule::unique('users')->ignore($this->user),
-            ],
-            'password' => 'required|min:5',
-            'repeat_password' => 'required|min:5|same:password',
-        ];
-    }
+    //     $this->firstname = $user->firstname;
 
-    public function setUser(?UserModel $user = null): void
-    {
-        $this->user = $user;
+    //     $this->lastname = $user->lastname;
 
-        $this->firstname = $user->firstname;
+    //     $this->username = $user->username;
 
-        $this->lastname = $user->lastname;
+    //     $this->email = $user->email;
 
-        $this->username = $user->username;
-
-        $this->email = $user->email;
-
-        $this->password = $user->password;
-        $this->repeat_password = $user->repeat_password;
-    }
+    //     $this->password = $user->password;
+    //     $this->repeat_password = $user->repeat_password;
+    // }
 
     public function store()
     {
-        $this->validate();
+        // $this->validate();
 
-        if (empty($this->user)) {
-            UserModel::create($this->only('firstname', 'lastname', 'password', 'username', 'email'));
-        } else {
-            $this->user->update($this->only('firstname', 'lastname', 'password'));
-        }
-        session()->flash('status', 'User created successfully.');
+        // $test = UserModel::create($this->all());
+        $data = $this->validate([
+            'firstname' => 'required|max:50',
+            'lastname' => 'required|max:50',
+            'username' => 'required|unique:users|max:50',
+            'email' => 'required|email|unique:users|max:50',
+            'password' => 'required|max:50',
+            'repeat_password' => 'required|same:password|max:50',
+        ]);
+
+
+        UserModel::create([
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+            'username' => $this->username,
+            'email' => $this->email,
+            'password' => $this->password,
+        ]);
+        // if (empty($this->user)) {
+        // } else {
+        //     $this->user->update($this->only('firstname', 'lastname', 'password'));
+        // }
+        session()->flash('message', 'tst');
     }
 }
